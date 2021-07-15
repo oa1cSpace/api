@@ -1,4 +1,5 @@
-import { TimeInterval } from 'rxjs/internal/operators/timeInterval';
+import { Base, TimeStamps } from '@typegoose/typegoose/lib/defaultClasses';
+import { prop } from '@typegoose/typegoose';
 
 export enum TopLevelCategory {
     Courses,
@@ -7,23 +8,58 @@ export enum TopLevelCategory {
     Products
 }
 
-export class TopPageModel {
-    _id: string;
-    firstLevel: TopLevelCategory;
-    secondLevel: string;
+export class HHData {
+    @prop()
+    jobOffers: number;
+
+    @prop()
+    startSalary: number;
+
+    @prop()
+    midSalary: number;
+
+    @prop()
+    topSalary: number;
+}
+
+export class TopPageAdvantage  {
+    @prop()
     title: string;
+
+    @prop()
+    description: string;
+}
+
+export interface TopPageModel extends Base {}
+export class TopPageModel extends TimeStamps{
+
+    @prop({enum: TopLevelCategory})
+    firstCategory: TopLevelCategory;
+
+    @prop()
+    secondCategory: string;
+
+    @prop({unique: true})
+    alias: string;
+
+    @prop()
+    title: string;
+
+    @prop()
     category: string;
-    hh?: {
-        jobOffers: number;
-        startSalary: number;
-        midSalary: number;
-        topSalary: number;
-    };
-    advantages: {
-        title: string;
-        description: string;
-    }[];
+
+    @prop({type: () => HHData})
+    hh?: HHData;
+
+    @prop({type: () => [TopPageAdvantage]})
+    advantages: TopPageAdvantage[];
+
+    @prop()
     seoText: string;
+
+    @prop()
     tagsTitle: string;
+
+    @prop({type: () => [String]})
     tags: string[];
 }

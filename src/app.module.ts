@@ -8,6 +8,7 @@ import { TopPageController } from './top-page/top-page.controller';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import { TypegooseModule } from 'nestjs-typegoose';
 import { getMongoConfig } from './configs/mongo.config';
+import { TopPageModule } from './top-page/top-page.module';
 
 @Module({
   controllers: [AppController, TopPageController],
@@ -19,6 +20,6 @@ import { getMongoConfig } from './configs/mongo.config';
           inject: [ConfigService],
           useFactory: getMongoConfig
       }),
-      ProductModule, AuthModule, ReviewModule],
+      ProductModule, AuthModule, ReviewModule, TopPageModule],
 })
 export class AppModule { }
