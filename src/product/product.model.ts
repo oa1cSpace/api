@@ -48,6 +48,4 @@ export class ProductModel extends TimeStamps{
 
     @prop({type: () => [String]})
     review: string[];
-
-
 }
