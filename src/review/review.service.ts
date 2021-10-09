@@ -10,7 +10,8 @@ export class ReviewService {
     constructor(@InjectModel(ReviewModel) private readonly reviewModel: ModelType<ReviewModel>) { }
 
     async create(dto: CreateReviewDto): Promise<DocumentType<ReviewModel>> {
-          return this.reviewModel.create(dto);
+        // @ts-ignore
+        return this.reviewModel.create(dto);
     }
 
     async delete(id: string): Promise<DocumentType<ReviewModel> | null> {
@@ -19,5 +20,10 @@ export class ReviewService {
 
     async findByProductId(productId: string): Promise<DocumentType<ReviewModel>[]> {
         return this.reviewModel.find({productId: Types.ObjectId(productId)}).exec();
+    }
+
+    async deleteAllComments(productId: string): Promise<{ok?: number | undefined; n?: number | undefined;}
+        & {deletedCount?: number | undefined;}> {
+        return this.reviewModel.deleteMany({productId: Types.ObjectId(productId)}).exec();
     }
 }

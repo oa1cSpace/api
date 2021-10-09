@@ -45,6 +45,16 @@ $ npm run start:dev
 $ npm run start:prod
 ```
 
+## Running the MongoDB in docker
+
+```bash
+# start DB
+$ docer-compose up -d
+
+# check started containers
+$ docker ps
+```
+
 ## Test
 
 ```bash
